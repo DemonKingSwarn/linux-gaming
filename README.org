@@ -1,0 +1,104 @@
+#+TITLE: Linux Gaming Guide
+#+AUTHOR: DemonKingSwarn
+
+How to run games on Arch (and configure Steam and Proton).
+
+* Enable Game Mode scheduling
+
+Game Mode configures CPU governer, scheduler, and process niceness for maximum performance for games. To enable Game Mode:
+
+1. First enable the =multilib= repo if you haven't already. Edit =/etc/pacman.conf= to add
+   #+begin_src
+     [multilib]
+     Include = /etc/pacman.d/mirrorlist
+   #+end_src
+
+2. Synchronize the repos by =sudo pacman -Syy=
+
+3. Install Game Mode
+   #+begin_src
+     sudo pacman -S lib32-gamemode gamemode
+   #+end_src
+
+4. You can run Game Mode by running =gamemoderun= command.
+
+5. Create a new user group with =sudo groupadd -r gamemode=.
+
+6. Add yourself to the group by =sudo usermod -aG gamemode <your username>=.
+
+7. Edit system security limits for users =sudo nvim /etc/security/limits.conf= to add the line:
+   #+begin_src
+     @gamemode      -        nice         10
+   #+end_src
+This will enable user accounts that are members of the gamemode group to increase (or 'renice') processes to a value of 10.
+
+8. Now test everything is working by running =gamemoded -t= and fix any errors (hopefully none).
+
+* Installing Stuffs
+
+** Wine-Staging
+#+begin_src sh
+sudo pacman -S wine-staging
+#+end_src
+
+** Proton-GE
+Go to [[https://github.com/GloriousEggroll/proton-ge-custom/releases][GitHub Releases]] and download the latest version, as of today 25th Feb 2023 its 7.49 so I will be using that for this guide.
+
+#+begin_src sh
+  cd .steam/steam/compatibilitytools.d/
+  wget "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton7-49/GE-Proton7-49.tar.gz"
+  tar -xvf GE-Proton7-49.tar.gz
+  rm *.tar.gz
+#+end_src
+
+** DXVK & VKD3D
+NOTE: for this you have to use the *AUR* helper
+#+begin_src sh
+  paru -S dxvk-bin vkd3d-proton-bin
+  cd /usr/share/dxvk
+  ./setup_dxvk.sh install
+  cd /usr/share/vkd3d-proton
+  ./setup_vkd3d_proton.sh install
+#+end_src
+
+** vkbasalt
+Similar to gamemode but specific to =VULKAN= games.
+
+#+begin_src sh
+paru -S vkbasalt lib32-vkbasalt
+#+end_src
+
+** gamescope
+gamescope is pretty amazing, its a wayland based compositor for games which also removes the vsync barrier of wayland and also HDR.
+
+#+begin_src sh
+  sudo pacman -S gamescope
+#+end_src
+
+If you are on NVIDIA GPU then to use gamescope you need this script which I call it gamescope-run
+
+#+begin_src sh
+#!/bin/sh
+
+export AMD_VULKAN_ICD=RADV
+igpu=$(lspci -nn | grep VGA | sed 's/^.*\[//;s/\].*$//' | head -n 1)
+
+gamescope --default-touch-mode 4 --prefer-vk-device $igpu --rt -w 1920 -h 1080 -W 1920 -H 1080 -f -U $@
+#+end_src
+
+
+* For games outside of steam
+In that case you have to use this proton script I made to run those *cracked* games, yes I know it, with the same optimizations
+
+#+begin_src sh
+#!/bin/sh
+
+PROTON="$HOME/.steam/steam/compatibilitytools.d/GE-Proton7-48/proton"
+STEAM_COMPAT_DATA_PATH="$HOME/.proton" STEAM_COMPAT_CLIENT_INSTALL_PATH="$HOME/.local/share/Steam" VKD3D_CONFIG=dxr PROTON_ENABLE_NVAPI=1 __VK_LAYER_NV_optimus=NVIDIA_only VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/nvidia_icd.json __GL_SHADER_DISK_CACHE=1 WINE_FULLSCREEN_FSR=1 WINE_FULLSCREEN_FAKE_CURRENT_RES=960x540 ENABLE_VKBASALT=1 LD_PRELOAD=$LD_PRELOAD:/usr/\$LIB/libgamemodeauto.so.0 "$PROTON" run $*
+#+end_src
+
+You can remove the =PROTON_ENABLE_NVAPI=1= and other NVIDIA variables if you don't have a NVIDIA GPU.
+
+* Done
+
+Congratulations on completing the setup, now you can enjoy high end gaming on linux with optimized performance. Happy Gaming 😁.
