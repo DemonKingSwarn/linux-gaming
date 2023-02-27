@@ -55,10 +55,8 @@ Go to [[https://github.com/GloriousEggroll/proton-ge-custom/releases][GitHub Rel
 NOTE: for this you have to use the *AUR* helper
 #+begin_src sh
   paru -S dxvk-bin vkd3d-proton-bin
-  cd /usr/share/dxvk
-  ./setup_dxvk.sh install
-  cd /usr/share/vkd3d-proton
-  ./setup_vkd3d_proton.sh install
+  /./user/share/dxvk/setup_dxvk.sh install
+  /./usr/share/vkd3d-proton/setup_vkd3d_proton.sh install
 #+end_src
 
 ** vkbasalt
@@ -81,7 +79,7 @@ If you are on NVIDIA GPU then to use gamescope you need this script which I call
 #!/bin/sh
 
 export AMD_VULKAN_ICD=RADV
-igpu=$(lspci -nn | grep VGA | sed 's/^.*\[//;s/\].*$//' | head -n 1)
+igpu=$(lspci -nn | sed -n '/VGA/{s/^.*\[//;s/\].*$//;p;q}')
 
 gamescope --default-touch-mode 4 --prefer-vk-device $igpu --rt -w 1920 -h 1080 -W 1920 -H 1080 -f -U $@
 #+end_src
