@@ -55,8 +55,8 @@ Go to [[https://github.com/GloriousEggroll/proton-ge-custom/releases][GitHub Rel
 NOTE: for this you have to use the *AUR* helper
 #+begin_src sh
   paru -S dxvk-bin vkd3d-proton-bin
-  ./usr/share/dxvk/setup_dxvk.sh install
-  ./usr/share/vkd3d-proton/setup_vkd3d_proton.sh install
+  /usr/share/dxvk/setup_dxvk.sh install
+  /usr/share/vkd3d-proton/setup_vkd3d_proton.sh install
 #+end_src
 
 ** vkbasalt
