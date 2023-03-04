@@ -34,6 +34,12 @@ This will enable user accounts that are members of the gamemode group to increas
 
 8. Now test everything is working by running =gamemoded -t= and fix any errors (hopefully none).
 
+* Enable FSync
+To uitlize that fsync patch in linux kernel you have to add this line in =/etc/security/limits.conf=
+#+begin_src
+<your username>   hard    nofile     524288
+#+end_src
+
 * Installing Stuffs
 
 ** Wine-Staging
