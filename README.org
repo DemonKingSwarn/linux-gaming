@@ -76,7 +76,7 @@ paru -S vkbasalt lib32-vkbasalt
 gamescope is pretty amazing, its a wayland based compositor for games which also removes the vsync barrier of wayland and also HDR.
 
 #+begin_src sh
-  sudo pacman -S gamescope
+  sudo pacman -S gamescope xwm
 #+end_src
 
 If you are on NVIDIA GPU then to use gamescope you need this script which I call it gamescope-run
