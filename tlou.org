@@ -1,0 +1,8 @@
+#+TITLE: The Last OF Us Part 1
+#+AUTHOR: DemonKingSwarn
+
+- In order to play TLOU Part 1 on NVIDIA GPUs you have to add this =PROTON_HIDE_NVIDIA_GPU=1= environment variable to your launch options (either in the game script or in steam game property) because TLOU Part 1 is dependent on Windows version of NVIDIA drivers and thats why it can't see the Linux NVIDIA drivers. Don't worry it still be able to use the NVIDIA drivers, it will just get masked as a AMD GPU by proton.
+
+- You have to wait for 1-2hrs for the shaders to compile in order to get the optimal performance, this game is just not optimized well for PCs. You have to also set the graphics to medium because of that same problem, don't worry FSR will handle the graphics for us :).
+
+  I Hope it helps you 😀
