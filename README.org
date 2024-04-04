@@ -103,6 +103,14 @@ STEAM_COMPAT_DATA_PATH="$HOME/.proton" STEAM_COMPAT_CLIENT_INSTALL_PATH="$HOME/.
 
 You can remove the =PROTON_ENABLE_NVAPI=1= and other NVIDIA variables if you don't have a NVIDIA GPU.
 
+* HDR
+
+So if you guys have a monitor which supports HDR output, then i would say use gamescope and proton only for gaming and use the following variable
+
+#+begin_src sh
+DXVK_HDR=1
+#+end_src
+
 * Done
 
 Congratulations on completing the setup, now you can enjoy high end gaming on linux with optimized performance. Happy Gaming 😁.
