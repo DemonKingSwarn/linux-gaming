@@ -42,9 +42,10 @@ To uitlize that fsync patch in linux kernel you have to add this line in =/etc/s
 
 * Installing Stuffs
 
-** Wine-Staging
-#+begin_src sh
-sudo pacman -S wine-staging
+** Wine
+
+#+begin_srch sh
+sudo pacman -S wine
 #+end_src
 
 ** Proton-GE
