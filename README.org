@@ -67,7 +67,8 @@ NOTE: for this you have to use the *AUR* helper
 #+end_src
 
 ** vkbasalt
-Similar to gamemode but specific to =VULKAN= games.
+
+Improves rendering of textures, gotta love the open source community
 
 #+begin_src sh
 paru -S vkbasalt lib32-vkbasalt
