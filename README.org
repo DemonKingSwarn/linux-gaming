@@ -44,7 +44,7 @@ To uitlize that fsync patch in linux kernel you have to add this line in =/etc/s
 
 ** Wine
 
-#+begin_srch sh
+#+begin_src sh
 sudo pacman -S wine
 #+end_src
 
